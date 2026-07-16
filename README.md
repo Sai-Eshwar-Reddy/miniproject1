@@ -144,19 +144,6 @@ This project helped me understand:
 - REST API version
 - Deploy the application online
 
-## Screenshots
-
-Add screenshots of:
-- Home Page
-- User List
-- Edit User Page
-
-## Author
-
-**Sai Eshwar Reddy**
-
-GitHub: https://github.com/your-username
-
 ---
 
 This project was built as part of my backend learning journey using Node.js, Express.js, EJS, and MySQL.
