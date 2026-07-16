@@ -1,0 +1,69 @@
+const { faker } = require('@faker-js/faker');
+const mysql = require('mysql2');
+const express = require('express');
+const app = express();
+app.set("view engine","ejs")
+const path = require('path');
+app.set("views",path.join(__dirname,"/views"));
+app.use(express.static(path.join(__dirname, "public")));
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    database: 'first',
+    password: 'pass@database'
+});
+let port = 3000;
+app.listen(port,()=>{
+    console.log("Server is running");
+});
+app.get('/',(req,res)=>{
+    let q = `select count(*) from users`;
+    connection.query(q,(err,result)=>{
+        if(err)
+        {
+            console.log(err);
+            res.send("some error");
+        }
+        else
+        {
+            let count = result[0]["count(*)"];
+            res.render("home.ejs",{count});
+        }
+    });
+});
+app.get('/users',(req,res)=>{
+    let q = 'select *from users';
+    connection.query(q,(err,result)=>{
+        if(err)
+            console.log(err);
+        else
+        {
+            let data = result;
+            res.render("userinfo.ejs",{ data });
+        }
+    });
+});
+// let data=[];
+// let getrandomuser = () => {
+//     return [
+//         faker.string.uuid(),
+//         faker.internet.username(),
+//         faker.internet.email(),
+//         faker.internet.password(),
+//     ]
+// }
+// for(let i=0;i<10;i++)
+// {
+//     data.push((getrandomuser()));  
+// }
+// let q = "insert into users values ?";
+// connection.query(q,[data], (err, result) => {
+//     if (err) {
+//         console.log(err);
+//     }
+//     else {
+//         console.log(result)
+//     }
+// });
+// connection.end();
+
